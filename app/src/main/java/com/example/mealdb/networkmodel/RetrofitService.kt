@@ -13,6 +13,8 @@ interface RetrofitService {
 
     @GET("filter.php/")
     suspend fun getMealForCategory(@Query("c") catName:String) : MealList
+    @GET("lookup.php/")
+    suspend fun getInstForMeal(@Query("i") idMeal:String) : MealList
 
     companion object {
         var baseUrl ="https://www.themealdb.com/api/json/v1/1/"

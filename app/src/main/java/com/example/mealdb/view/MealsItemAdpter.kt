@@ -45,13 +45,6 @@ class MealsItemAdpter :
     fun setOnItemClickListener(clickListener: ClickListener<MealEntity>) {
         this.clickListener = clickListener
     }
-    fun clearItems() {
-        for(i:Int in 0..itemCount.dec()) {
-            itemsList.drop(i)
-            //notifyItemRemoved(i)
-        }
-        notifyDataSetChanged()
-    }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name: TextView = itemView.findViewById(R.id.name)

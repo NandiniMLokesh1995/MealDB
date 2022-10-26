@@ -15,6 +15,8 @@ class MealVewModelRetro(val repository: MealRetroRepository) : ViewModel() {
 
     var categories = MutableLiveData<CategoryEntity>()
     var mealsList = MutableLiveData<MealList>()
+    var mealsListInst = MutableLiveData<MealList>()
+    var mealsId = MutableLiveData<String>()
     var TAG="MealVewModelRetro"
 
     fun getMealCategories() {
@@ -42,6 +44,23 @@ class MealVewModelRetro(val repository: MealRetroRepository) : ViewModel() {
                 //Log.d(TAG, "MealList: ")
                 if (response.meals!=null) {
                     mealsList.postValue(response)
+
+                } else {
+
+                }
+
+            }
+        }
+    }
+
+    fun getInsructionForMeal(idMeal: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response:MealList = repository.getInstructionForMeal(idMeal)
+            Log.d(TAG, "getItemsInst: "+response.meals)
+            withContext(Dispatchers.Main) {
+                Log.d(TAG, "getMealCategories: ")
+                if (response.meals!=null) {
+                    mealsListInst.postValue(response)
 
                 } else {
 

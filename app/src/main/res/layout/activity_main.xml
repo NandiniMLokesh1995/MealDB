@@ -4,22 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple_700"
     tools:context=".view.MainActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.MainActivity">
+        android:layout_height="match_parent">
+
+        <!-- AppBar layout for using Toolbar as AppBar -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- ToolBar widget -->
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/purple_500"
+                    android:minHeight="?attr/actionBarSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:title="@string/app_name"
+                    app:titleTextColor="#ffff" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
     <TextView
         android:id="@+id/label_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="@tools:sample/full_names"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:layout_constraintEnd_toEndOf="parent"
         />
 

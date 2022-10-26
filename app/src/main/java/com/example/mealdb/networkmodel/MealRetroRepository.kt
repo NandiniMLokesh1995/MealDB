@@ -6,4 +6,5 @@ import com.example.mealdb.databasemodel.MealList
 class MealRetroRepository(private val retrofitService: RetrofitService) {
     suspend fun getAllCat() : CategoryEntity = retrofitService.getAllMealCategory()
     suspend fun getAllMealsForCategory(catName: String) : MealList = retrofitService.getMealForCategory(catName)
+    suspend fun getInstructionForMeal(idMeal: String): MealList = retrofitService.getInstForMeal(idMeal)
 }

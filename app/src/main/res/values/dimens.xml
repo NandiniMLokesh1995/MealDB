@@ -4,4 +4,5 @@
     <dimen name="label_size">18sp</dimen>
     <dimen name="textmargin">10dp</dimen>
     <dimen name="tv_body_size">18sp</dimen>
+    <dimen name="inst_img_height">300dp</dimen>
 </resources>

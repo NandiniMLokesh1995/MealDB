@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_cat"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.MealListFragment">
     <androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/category_name"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_below="@+id/rv_categories"
         android:layout_margin="@dimen/textmargin"

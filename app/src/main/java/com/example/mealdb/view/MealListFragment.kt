@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.mealdb.R
 import com.example.mealdb.databasemodel.Category
 import com.example.mealdb.databasemodel.MealEntity
 import com.example.mealdb.databinding.FragmentMealListBinding
@@ -68,16 +69,17 @@ class MealListFragment : Fragment() {
 
         observer()
 
+
         mealAdapter!!.setOnItemClickListener(object : ClickListener<MealEntity> {
             override fun onClick(view: View?, data: MealEntity, position: Int) {
+                mealVewModelRetro.mealsId.value=data.idMeal
 
-                Toast.makeText(
-                    context,
-                    """"Position = ${position.inc()} Category= ${data.strMeal} """,
-                    Toast.LENGTH_SHORT
-                ).show()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.meals_fragment, MealInstructionFragment()).commit()
+                Toast.makeText(context,""""Position = ${position.inc()} Category= ${data .strMeal} """,
+                    Toast.LENGTH_SHORT).show()
             }
-        })
+    })
         return view
 
     }
