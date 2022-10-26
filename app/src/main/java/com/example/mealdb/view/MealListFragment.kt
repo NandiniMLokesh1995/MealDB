@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.mealdb.databasemodel.Category
 import com.example.mealdb.databasemodel.MealEntity
 import com.example.mealdb.databinding.FragmentMealListBinding
 import com.example.mealdb.networkmodel.MealRetroRepository
@@ -23,6 +24,8 @@ class MealListFragment : Fragment() {
     var retrofitService: RetrofitService = RetrofitService.getInstance()
     lateinit var mealVewModelRetro: MealVewModelRetro
     lateinit var mealAdapter:  MealsItemAdpter
+    lateinit var catgAdapter:  CategoryItemAdpter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,22 +33,41 @@ class MealListFragment : Fragment() {
         binding= FragmentMealListBinding.inflate(inflater, container, false)
         val view: View =binding.root
         val context = requireContext()
-        binding.recyclerview.layoutManager = GridLayoutManager(activity, 4)
+
         mealVewModelRetro = ViewModelProvider(this,
-            MealViewModelFactoryRetro(MealRetroRepository(retrofitService))
-        )
+            MealViewModelFactoryRetro(MealRetroRepository(retrofitService)))
             .get(MealVewModelRetro::class.java)
-        mealVewModelRetro.getMealListForCategory("Beef")
-        mealAdapter = MealsItemAdpter()
 
-        binding.recyclerview.adapter = mealAdapter
-        mealVewModelRetro.mealsList.observe(requireActivity(), Observer {
+        mealVewModelRetro.getMealCategories()
 
-            mealAdapter.clearItems()
-            mealAdapter.setData(it.meals)
-            mealAdapter.notifyDataSetChanged()
+        catgAdapter = CategoryItemAdpter()
+        binding.rvCategories.adapter=catgAdapter
+
+        mealVewModelRetro.categories.observe(requireActivity(), Observer {
+            catgAdapter.setData(it.categories)
+            catgAdapter.notifyDataSetChanged()
 
         })
+        catgAdapter!!.setOnItemClickListener(object : ClickListener<Category> {
+            override fun onClick(view: View?, data: Category, position: Int) {
+                mealVewModelRetro.getMealListForCategory(data.strCategory)
+
+                observer()
+                Toast.makeText(
+                    requireActivity(), """"Position = ${position.inc()} Category= ${data.strCategory} """, Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+
+
+        binding.rvItemList.layoutManager=GridLayoutManager(requireActivity(),3)
+        mealAdapter = MealsItemAdpter()
+        binding.rvItemList.adapter = mealAdapter
+        mealVewModelRetro.getMealListForCategory("Beef")
+
+        observer()
+
         mealAdapter!!.setOnItemClickListener(object : ClickListener<MealEntity> {
             override fun onClick(view: View?, data: MealEntity, position: Int) {
 
@@ -58,6 +80,16 @@ class MealListFragment : Fragment() {
         })
         return view
 
+    }
+
+    private fun observer() {
+        mealVewModelRetro.mealsList.observe(requireActivity(), Observer {
+
+            mealAdapter.setData(it.meals)
+            mealAdapter.notifyDataSetChanged()
+
+
+        })
     }
 
 }
